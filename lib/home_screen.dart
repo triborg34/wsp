@@ -201,7 +201,7 @@ class MyButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 25),
-      height: 51,
+      height: 50,
       child: ElevatedButton(
           style: TextButton.styleFrom(
             backgroundColor: color!,
