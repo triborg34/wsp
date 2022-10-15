@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
           height: double.infinity,
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: AssetImage('assets/images/raw.jpg'),
+            image: AssetImage(choice),
             fit: BoxFit.cover,
           )),
           child: BackdropFilter(
