@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
       title: "WSP | کشتی کج در دستان شما",
+      theme: ThemeData(fontFamily: 'bkoodak'),
       
       
     );

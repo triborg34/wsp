@@ -1,8 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
-import 'dart:io';
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wspwebsite/constracts.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double widthof = MediaQuery.of(context).size.width;
     double hightof = MediaQuery.of(context).size.height;
+    
     
     return Scaffold(
       body: Stack(children: [
@@ -35,7 +37,7 @@ class HomeScreen extends StatelessWidget {
               // width: widthof * 0.3,
               // height: hightof * 0.8,
               width: widthof >= 600 ? 400 : 300,
-              height: hightof>920 ? 850:700,
+              height: hightof>920 ? 850:800,
 
               decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.7),
@@ -72,12 +74,26 @@ class HomeScreen extends StatelessWidget {
                       image: AssetImage('assets/images/logo.png'),
                       color: backcolors,
                     ),
-                  ),
+                  ),Container(
+                      padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                      child: Text(
+                        "Wrestiling Streaming Platform ",
+                        style: TextStyle(
+                          fontFamily: "bigjohn",
+                          
+                            fontSize: widthof>600 ?14 :10,
+                            fontWeight: FontWeight.bold,
+                            height: 2),
+                        textDirection: TextDirection.rtl,
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                      )),
                   Container(
                       padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                       child: Text(
-                        "Wrestiling Streaming Platform \n یک سرویس نمایش مسابقات کشتی کج به صورت آنلاین است که قابلیت دانلود را نیز دارد، این سرویس تمامی مسابقات روز را در سریع ترین زمان ممکن قرار میدهد.",
+                        "یک سرویس نمایش مسابقات کشتی کج به صورت آنلاین است که قابلیت دانلود را نیز دارد، این سرویس تمامی مسابقات روز را در سریع ترین زمان ممکن قرار میدهد.",
                         style: TextStyle(
+                          
                             fontSize: widthof>600 ?18 :14,
                             fontWeight: FontWeight.bold,
                             height: 2),
@@ -89,11 +105,12 @@ class HomeScreen extends StatelessWidget {
                     height: 20,
                   ),
                   MyButtons(
-                    color: Colors.green[800],
+                    color: Colors.green[700],
                     text: "دریافت مستقیم فایل apk اندروید ",
                     myicon: Icons.android_outlined,
                     Myhight: hightof,
                     Mywidht: widthof,
+                    url:Uri.parse('/file/wspApp.apk'),
                   ),
                   SizedBox(
                     height: 20,
@@ -104,6 +121,7 @@ class HomeScreen extends StatelessWidget {
                     myicon: Icons.apple_outlined,
                     Myhight: hightof,
                     Mywidht: widthof,
+                    url: Uri.parse(''),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -113,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                         child: Text(
                           "ارتباط با ما:",
                           style: TextStyle(
-                              fontSize: widthof >= 600? 24:18, fontWeight: FontWeight.bold),
+                              fontSize: widthof >= 600? 24:18, fontWeight: FontWeight.bold,fontFamily: 'btitr'),
                           textDirection: TextDirection.rtl,
                         ),
                       ),
@@ -172,7 +190,7 @@ class ContactUsWidget extends StatelessWidget {
           ),
           Text(
             text!,
-            style: TextStyle(color: myColors, fontSize: Mywidht! >= 600? 20:13),
+            style: TextStyle(color: myColors, fontSize: Mywidht! >= 600? 20:13,),
           )
         ],
       ),
@@ -188,13 +206,15 @@ class MyButtons extends StatelessWidget {
   IconData? myicon;
   double? Mywidht;
   double? Myhight;
+  Uri? url;
   MyButtons(
       {Key? key,
       this.color,
       this.text,
       this.myicon,
       this.Myhight,
-      this.Mywidht})
+      this.Mywidht,
+      this.url})
       : super(key: key);
 
   @override
@@ -206,7 +226,10 @@ class MyButtons extends StatelessWidget {
           style: TextButton.styleFrom(
             backgroundColor: color!,
           ),
-          onPressed: () {},
+          onPressed: () async{
+            launchUrl(url!,);
+            
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
