@@ -110,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                     myicon: Icons.android_outlined,
                     Myhight: hightof,
                     Mywidht: widthof,
-                    url:Uri.parse('/file/wspApp.apk'),
+                    url:Uri.parse('https://github.com/triborg34/wspwebsite/raw/main/file/wspApp.apk'),
                   ),
                   SizedBox(
                     height: 20,
