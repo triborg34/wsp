@@ -1,0 +1,245 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:thisjustfortest/controller.dart';
+
+// ignore: must_be_immutable
+class HomeScreen extends StatelessWidget {
+  List textx = ['All', 'Gaming Stuff', 'Camera Stuff', 'Pc Stuff'];
+  List<IconData> icons = [Icons.home, Icons.shop, Icons.manage_accounts];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: Container(
+        margin: EdgeInsets.symmetric(horizontal: 85, vertical: 10),
+        height: 70,
+        decoration: BoxDecoration(
+            color: Color.fromRGBO(104, 126, 255, 1.0),
+            borderRadius: BorderRadius.circular(25)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            for (int i = 0; i < icons.length; i++)
+              Obx(
+                () => GestureDetector(
+                  onTap: () {
+                    Get.find<Controllers>().bottomindex.value = i;
+                  },
+                  child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: Get.find<Controllers>().bottomindex.value == i
+                              ? Colors.white
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Icon(
+                        icons[i],
+                        size: 30,
+                        color: Get.find<Controllers>().bottomindex.value == i
+                            ? Colors.orange
+                            : Colors.white,
+                      )),
+                ),
+              )
+          ],
+        ),
+      ),
+      backgroundColor: Color.fromRGBO(15, 16, 20, 1.0),
+      body: Container(
+          child: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                padding: EdgeInsets.all(15),
+                margin: EdgeInsets.all(30.0),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.5,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(104, 126, 255, 1.0),
+                    borderRadius: BorderRadius.circular(25)),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border:
+                                  Border.all(width: 2, color: Colors.white)),
+                          child: Icon(
+                            color: Colors.white,
+                            size: 35,
+                            Icons.more_horiz,
+                          )),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      RotatedBox(
+                        quarterTurns: -1,
+                        child: Container(
+                            padding: EdgeInsets.all(25),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(35),
+                                color: Color(0xff8c9dff)),
+                            child: Text(
+                              "Best Selling",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                "XBOX Controller",
+                                style: TextStyle(
+                                    color: Colors.white.withOpacity(0.5),
+                                    fontSize: 18),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                "\$199.99",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                          CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 40,
+                            child: Center(
+                                child: Icon(
+                              Icons.add,
+                              color: Colors.orange,
+                              size: 45,
+                            )),
+                          )
+                        ],
+                      )
+                    ]),
+              ),
+              Positioned(
+                top: 20,
+                left: 140,
+                child: Image.asset(
+                  'assets/images/controll.png',
+                  height: 250,
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+              child: Container(
+            child: Column(children: [
+              Container(
+                height: 50,
+                child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => Obx(
+                          () => GestureDetector(
+                            onTap: () => Get.find<Controllers>()
+                                .currentindex
+                                .value = index,
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Color(0xff2a2d38),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  textx[index],
+                                  style: TextStyle(
+                                      color: Get.find<Controllers>()
+                                                  .currentindex
+                                                  .value ==
+                                              index
+                                          ? Colors.white
+                                          : Colors.white.withOpacity(0.5),
+                                      fontSize: 18),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                    separatorBuilder: (context, index) => SizedBox(
+                          width: 10,
+                        ),
+                    itemCount: textx.length),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Row(
+                children: [
+                  bottomShow(
+                      'assets/images/00.png', '360 VR Camera', '\$218.99'),
+                  bottomShow('assets/images/01.png', 'HeadPhone', '\$99.99')
+                ],
+              )
+            ]),
+          ))
+        ],
+      )),
+    );
+  }
+}
+
+Widget bottomShow(String image, String name, String price) {
+  return Expanded(
+    child: Container(
+      margin: EdgeInsets.symmetric(horizontal: 7.5),
+      height: 150,
+      child: Stack(children: [
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            height: 100,
+            decoration: BoxDecoration(
+                color: Color.fromRGBO(26, 28, 45, 1.0),
+                borderRadius: BorderRadius.circular(15)),
+          ),
+        ),
+        Positioned(
+            top: 100,
+            left: 10,
+            child: Text(
+              name,
+              style: TextStyle(color: Colors.white.withOpacity(0.5)),
+            )),
+        Positioned(
+            top: 125,
+            left: 10,
+            child: Text(
+              price,
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            )),
+        Align(alignment: Alignment.topCenter, child: Image.asset(image)),
+        Align(
+            alignment: Alignment.bottomRight,
+            child: CircleAvatar(
+              radius: 25,
+              child: Icon(
+                Icons.add,
+                color: Colors.orange,
+                size: 30,
+              ),
+              backgroundColor: Colors.white,
+            ))
+      ]),
+    ),
+  );
+}
